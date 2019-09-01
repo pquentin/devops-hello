@@ -16,4 +16,7 @@ jobs:
           command: |
             . venv/bin/activate
             prometheus_multiproc_dir=/tmp pytest hello.py
+
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run: docker build -t hello:$CIRCLE_SHA1 .
