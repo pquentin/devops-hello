@@ -9,7 +9,7 @@ metrics = GunicornPrometheusMetrics(app)
 
 @app.route("/")
 def index():
-    time.sleep(1)
+    time.sleep(0.1)
     return "Hello, World!"
 
 
@@ -20,6 +20,6 @@ def test_index():
     r = client.get("/")
     end = time.monotonic()
 
-    assert end - start >= 1.0
+    assert end - start >= 0.1
     assert r.data == b"Hello, World!"
     assert r.status_code == 200
