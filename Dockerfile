@@ -1,13 +1,13 @@
 FROM python:3.7-alpine
 
+RUN apk update && apk add nginx
+
+ENV prometheus_multiproc_dir /tmp
 ADD . /opt/app
 WORKDIR /opt/app
 
 RUN pip install pipenv
 RUN pipenv install --deploy
-
-ENV prometheus_multiproc_dir /tmp
-
 RUN pipenv run pytest hello.py
 
-CMD pipenv run gunicorn --bind 0.0.0.0 --workers 4 hello:app -c conf.py
+CMD pipenv run supervisord -c /opt/app/supervisord.conf
