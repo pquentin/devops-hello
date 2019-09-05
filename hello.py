@@ -7,17 +7,17 @@ app = Flask(__name__)
 metrics = GunicornPrometheusMetrics(app)
 
 
-@app.route('/')
+@app.route("/")
 def index():
     time.sleep(1)
-    return 'Hello, World!'
+    return "Hello, World!"
 
 
 def test_index():
     client = app.test_client()
 
     start = time.monotonic()
-    r = client.get('/')
+    r = client.get("/")
     end = time.monotonic()
 
     assert end - start >= 1.0
