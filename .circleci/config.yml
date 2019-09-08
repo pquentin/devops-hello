@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker: 
-      - image: circleci/python:3.7
+      - image: circleci/python:3.7-buster
     steps:
       - checkout
       - run:
@@ -10,6 +10,16 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
+
+            # Install Google Cloud SDK
+            # https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu
+            echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+            curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+            sudo apt-get update && sudo apt-get install google-cloud-sdk
+
+            # Authenticate
+            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet auth configure-docker
       - run:
           name: run tests
           command: |
@@ -17,4 +27,8 @@ jobs:
 
       - setup_remote_docker:
           docker_layer_caching: true
-      - run: docker build -t hello:$CIRCLE_SHA1 .
+      - run:
+          name: build & push docker image
+          command: |
+              docker build -t gcr.io/${GOOGLE_PROJECT_ID}/hello:$CIRCLE_SHA1 .
+              docker push gcr.io/${GOOGLE_PROJECT_ID}/hello:$CIRCLE_SHA1
