@@ -34,10 +34,5 @@ spec:
     name: hello-quentin
   ports:
     - protocol: TCP
-      name: flask
       port: 8000
       targetPort: 8000
-    - protocol: TCP
-      name: prometheus
-      port: 8080
-      targetPort: 8080
