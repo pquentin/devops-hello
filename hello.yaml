@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: hello
-        image: gcr.io/devops-epitech/hello@sha256:e9d53bdce031f3089552f4fd95af8eaf608d09448d026f78b829309ce83254ed
+        image: gcr.io/devops-epitech/hello:8774c49007f9937c90b1aca90bda2486fc46706e
         ports:
         - containerPort: 8000
         - containerPort: 8080
