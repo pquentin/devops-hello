@@ -2,7 +2,6 @@ FROM python:3.7-alpine
 
 RUN apk update && apk add nginx
 
-ENV prometheus_multiproc_dir /tmp
 ADD . /opt/app
 WORKDIR /opt/app
 
