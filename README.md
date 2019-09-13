@@ -1,13 +1,22 @@
 # Séminaire DevOps - Epitech Saint-André
 
-Nous avons quatre heures pour vous donner une idée des pratiques
-DevOps. Ce qu'on va faire, c'est vous donner une idée des tâches qui
-vous attendent en tant que développeurs dans un tel système.
+DevOps, qu'est-ce que c'est ? Revenons un peu dans le temps.
+Historiquement, les développeurs et les administrateurs systèmes
+étaient isolés, chacun dans leur coin. Les développeurs voulaient...
+développer, faire évoluer leur site web le plus vite possible. Les
+administrateurs, eux, voulaient que le site soit stable. Il y a une
+tension inhérente entre les deux approches. Les pratiques DevOps
+cherchent à les réconcilier en rendant les développeurs responsable de
+leurs sites webs et applications et en faisant adopter des méthodes
+développement aux administrateurs systèmes.
 
-Nous allons partir sur un exemple concret, une application Flask
-minimale qui va servir à introduire les concepts que j'ai jugé les
-plus importants dans une introduction, parce qu'utiles au jour le
-jour.
+Comme vous êtes des développeurs, je vais vous montrer comment gérer
+un site web comme si vous étiez un développeur dans une équipe
+adepte des pratiques DevOps.
+
+Nous allons partir sur un exemple concret, une application Flask qui
+va servir à introduire les concepts que j'ai jugé les plus importants
+dans une introduction, parce qu'utiles au jour le jour.
 
 Cette application Flask sera la plus basique possible : elle
 n'affichera qu'un simple message dans votre navigateur. Ce qui va nous
@@ -19,18 +28,14 @@ intéresser ici, c'est tout le reste :
  * la surveillance de l'application
  * la haute disponiblité, et les mises à jour de cette application
 
-Une manière simple de voir le mouvement DevOps est que vous ne faites
-plus que développer une application, vous gérez tout son cycle de vie,
-ce qui demande de nouvelles compétences dont on va parler aujourd'hui.
-
 ## Pré-requis
 
 J'ai choisi d'utiliser GitHub pour stocker le code source, Circle CI
 pour l'intégration continue, et Google Cloud Platform pour le
-déploiement dans Kubernetes. Rien n'oblige à utiliser ces outils là en
-particulier, et ils ont tous des concurrents tout aussi performants,
-mais j'ai préféré utiliser des outils que je connais déjà pour pouvoir
-vous aider au mieux si vous rencontrez un problème.
+déploiement dans Kubernetes. Rien n'oblige à utiliser ces services là
+en particulier, et ils ont tous des concurrents tout aussi
+performants, mais j'ai préféré utiliser des outils que je connais déjà
+pour pouvoir vous aider au mieux si vous rencontrez un problème.
 
 Du coup, il faut un compte GitHub, pour vous donner accès à ce projet,
 et un compte Google pour vous donner accès au projet Google Cloud
@@ -38,7 +43,7 @@ Platform que j'ai créé pour ce séminaire. Merci de me les envoyer par
 mail. Différents outils sont indispensables aujourd'hui : Docker, git
 et le SDK Google Cloud. Nous les installerons le moment opportun.
 
-## Modification de l'application Flask Hello
+## Modification de l'application Flask Hello et test local
 
 Chacun d'entre vous va déployer sa propre application, et ça commence
 par envoyer votre version sur GitHub. Il faut installer et configurer
@@ -78,9 +83,9 @@ Puis voir le résultat dans votre navigateur :
 
 Pour déployer notre application, nous allons utiliser une image
 Docker, qui va contenir à elle seule un système d'exploitation,
-Python, notre application et ces dépendances. Le grand avantage de
+Python, notre application et ses dépendances. Le grand avantage de
 Docker ici est que le fonctionnement sera exactement le même chez vous
-et déployé dans le cloud.
+et dans le cloud Google.
 
 Pour installer Docker, les [instruction pour
 Fedora](https://docs.docker.com/install/linux/docker-ce/fedora/)
@@ -105,11 +110,11 @@ Nous pouvons ensuite construire notre image :
 $ docker build -t hello .
 ```
 
-Cette commande suite les instructions présentes dans le fichier
-Dockerfile. Apprendre à écrire un tel fichier ne fait pas partie de ce
-que je veux vous montrer aujourd'hui.
+Cette commande `docker build` exécute en fait les instructions
+présentes dans le fichier Dockerfile. Apprendre à écrire un tel
+fichier ne fait pas partie de ce que je veux vous montrer aujourd'hui.
 
-Et l'éxecuter :
+On peut ensuite lancer notre image :
 
 ```
 $ docker run -p 8000:8000 hello
@@ -119,18 +124,20 @@ Et cette fois, aller à l'adresse
 [http://127.0.0.1:8000/](http://127.0.0.1:8000/) pour admirer le
 résultat.
 
-À part le numéro du port, la différence ici est que l'image Docker est
-prête à être utilisée en production. Au lieu du serveur de test de
-Flask, nous utilisons nginx et gunicorn qui sont conçus pour tenir la
-charge face à de vrais utilisateurs.
+À part le numéro du port qui change sans raison particulière (8000 vs
+5000), la différence ici est que l'image Docker est prête à être
+utilisée en production. Au lieu du serveur de test de Flask, nous
+utilisons nginx et gunicorn qui sont conçus pour tenir la charge face
+à de vrais utilisateurs.
 
 ### Intégration continue
 
 Nous avons testé notre image Docker en local, maintenant nous
 souhaitons la construire lors de chaque modification de notre projet
 sur GitHub. Ce qui va se passer, c'est qu'on va envoyer notre
-modification sur GitHub, et Circle CI va construire l'image Docker pour
-nous, en suivant les instructions présentes dans .circle/config.yml.
+modification sur GitHub, et Circle CI lancer les tests puis va
+construire l'image Docker pour nous, en suivant les instructions
+présentes dans .circle/config.yml.
 
 Ici, il faut me donner votre identifiant GitHub, pour que je puisse
 vous rajouter au projet, et que vous ayez le droit d'envoyer votre
@@ -157,6 +164,23 @@ Amazon, Microsoft Azure ou encore Digital Ocean. Nous allons utiliser
 ses fonctionnalités les plus simples, celles qui sont utiles en tant
 que développeur.
 
+Kubernetes permet d'utiliser des clusters :
+
+ * un cluster est un ensemble d'ordinateurs appelés noeuds
+ * sur chaque noeud, on peut déployer des images Docker comme celle
+   que nous avons construite plus haut
+
+La configuration se fait dans des fichiers YAML. Nous en verrons deux
+aujourd'hui :
+
+ * un déploiement est une configuration qui décrit une image Docker
+   qui pourra être répliquée sur plusieurs noeuds
+ * un service est une autre configuration permettant de rendre
+   accessible par Internet nos images Docker
+
+Ce sont des concepts importants, donc je vais essayer d'insister pour
+en parler à l'oral.
+
 J'ai choisi d'utiliser Google Cloud Platform, et j'ai donc besoin que
 vous me communiquiez un compte Google pour que je vous donne accès au
 cluster Kubernetes.
@@ -169,37 +193,28 @@ Il faut ensuite initialiser l'environnement :
 
 ```
 $ gcloud init
-$ gcloud container clusters get-credentials your-first-cluster-1 --zone
+$ gcloud container clusters get-credentials c1 --zone
 europe-west6-a --project devops-epitech
 ```
 
-Il y a quelques concepts Kubernetes à définir :
-
- * un cluster est un ensemble de noeuds, autrement dit un ensemble
-   d'ordinateurs
- * sur chaque noeud, on peut avoir des pods, qui sont des ensembles de
-   conteneurs Docker, même si souvent chaque pod ne contient qu'un
-   conteneur Docker
- * un déploiement est un ensemble de pods, chaque pod tournant en
-   général sur un noeud différent
- * un service est un moyen de faire des requêtes sur les pods d'un
-   déploiement
-
-Ce sont des concepts importants, donc je vais essayer d'insister pour
-en parler à l'oral.
-
 ## Premier déploiement
 
-Modifiez le fichier hello-deployment.yml pour remplaer "votrenom" par
-"votrenom" (moi j'ai mis "quentin"). Il faut aussi modifier
-"votresha1" pour utiliser le sha1 de votre commit. Vous pouvez
-l'obtenir avec "git log".
+Modifiez le fichier hello-deployment.yml pour remplaer "quentin" par
+votre prénom. Il faut aussi modifier la version de l'image (après les
+:) pour utiliser le sha1 de votre commit git. Vous pouvez l'obtenir
+avec "git log".
 
 Ensuite, il suffit de lancer "$ kubectl apply -f
-hello-deployment.yml", ce qui va créer un déploiement, et ici mettre
+hello.yml", ce qui va créer un déploiement, et ici mettre
 en place trois répliques de votre image Docker. Comme on veut qu'elles
 soient disponibles sur Internet, il y aussi un "service". Quelle est
 son adresse IP ?
+
+Vous pouvez utiliser l'interface web :
+
+https://console.cloud.google.com/kubernetes/discovery?project=devops-epitech&service_list_tablesize=50
+
+Ou la ligne de commande :
 
 ```
 $ kubectl get services
@@ -212,7 +227,10 @@ serveurs répondent en même temps.
 
 ## Monitoring
 
-TODO Métriques Prometheus.
+Je vous ai préparé un dashboard Grafana montrant des métriques liées à
+votre site web : http://34.65.175.126:3000/d/KKmr-UcZz/flask?orgId=1
+
+C'est indispensable pour corriger un problème quand ça va mal.
 
 ## Déployer une nouvelle version
 
