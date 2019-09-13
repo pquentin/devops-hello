@@ -4,9 +4,10 @@ Nous avons quatre heures pour vous donner une idée des pratiques
 DevOps. Ce qu'on va faire, c'est vous donner une idée des tâches qui
 vous attendent en tant que développeurs dans un tel système.
 
-Nous allons partir sur un exemple concret, une bête application Flask
-qui va servir à introduire les concepts que j'ai jugé les plus
-importants dans une introduction, parce qu'utiles au jour le jour.
+Nous allons partir sur un exemple concret, une application Flask
+minimale qui va servir à introduire les concepts que j'ai jugé les
+plus importants dans une introduction, parce qu'utiles au jour le
+jour.
 
 Cette application Flask sera la plus basique possible : elle
 n'affichera qu'un simple message dans votre navigateur. Ce qui va nous
