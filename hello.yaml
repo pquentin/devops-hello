@@ -16,11 +16,15 @@ spec:
         name: hello-quentin
     spec:
       containers:
-      - name: hello
+      - name: hello-quentin
         image: gcr.io/devops-epitech/hello:8774c49007f9937c90b1aca90bda2486fc46706e
         ports:
         - containerPort: 8000
         - containerPort: 8080
+        resources:
+          requests:
+              cpu: 10m
+
 ---
 apiVersion: v1
 kind: Service
