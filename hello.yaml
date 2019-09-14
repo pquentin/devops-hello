@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: hello-seb
-        image: gcr.io/devops-epitech/hello:8774c49007f9937c90b1aca90bda2486fc46706e
+        image: gcr.io/devops-epitech/hello:2f98981a9913d9990d4a3b3e01d15442a7fcb322                   #8774c49007f9937c90b1aca90bda2486fc46706e
         ports:
         - containerPort: 8000
         - containerPort: 8080
