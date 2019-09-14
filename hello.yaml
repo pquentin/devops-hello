@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-quentin
+  name: hello-seb
 spec:
   replicas: 3
   selector:
     matchLabels:
-      name: hello-quentin
+      name: hello-seb
   template:
     metadata:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8080"
       labels:
-        name: hello-quentin
+        name: hello-seb
     spec:
       containers:
-      - name: hello-quentin
+      - name: hello-seb
         image: gcr.io/devops-epitech/hello:8774c49007f9937c90b1aca90bda2486fc46706e
         ports:
         - containerPort: 8000
@@ -29,13 +29,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-quentin
+  name: hello-seb
   labels:
-     name: hello-quentin
+     name: hello-seb
 spec:
   type: LoadBalancer
   selector:
-    name: hello-quentin
+    name: hello-seb
   ports:
     - protocol: TCP
       port: 8000
