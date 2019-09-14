@@ -17,5 +17,5 @@ def index():
 def test_index():
     client = app.test_client()
     r = client.get("/")
-    assert r.data == b"Hello, World!"
+    assert r.data == b"Hello Anna MF!"
     assert r.status_code == 200
