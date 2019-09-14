@@ -199,10 +199,10 @@ europe-west6-a --project devops-epitech
 
 ## Premier déploiement
 
-Modifiez le fichier hello-deployment.yml pour remplaer "quentin" par
-votre prénom. Il faut aussi modifier la version de l'image (après les
-:) pour utiliser le sha1 de votre commit git. Vous pouvez l'obtenir
-avec "git log".
+Modifiez le fichier hello.yml pour remplacer "quentin" par votre
+prénom. Il faut aussi modifier la version de l'image (après les :)
+pour utiliser le sha1 de votre commit git. Vous pouvez l'obtenir avec
+"git log".
 
 Ensuite, il suffit de lancer "$ kubectl apply -f
 hello.yml", ce qui va créer un déploiement, et ici mettre
