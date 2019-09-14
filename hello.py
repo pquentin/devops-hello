@@ -11,7 +11,7 @@ metrics = GunicornPrometheusMetrics(app)
 
 @app.route("/")
 def index():
-    return "Hello, World!"
+    return "Hello Anna"
 
 
 def test_index():
