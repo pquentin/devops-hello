@@ -11,11 +11,11 @@ metrics = GunicornPrometheusMetrics(app)
 
 @app.route("/")
 def index():
-    return "Hello, World!"
+    return "Hello, Devops eddy le marseillais"
 
 
 def test_index():
     client = app.test_client()
     r = client.get("/")
-    assert r.data == b"Hello, World!"
+    assert r.data == b"Hello, Devops eddy le marseillais"
     assert r.status_code == 200
