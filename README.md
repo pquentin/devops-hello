@@ -73,7 +73,7 @@ et enfin lancer le serveur de test :
 $ dnf install pipenv
 $ pipenv install
 $ pipenv run pytest hello.py
-$ FLASK_APP=hello.py pipenv run flask
+$ FLASK_APP=hello.py pipenv run flask run
 ```
 
 Puis voir le résultat dans votre navigateur :
