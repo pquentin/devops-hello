@@ -1,5 +1,6 @@
 import os
 
+from random import randint
 from flask import Flask
 from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
 
@@ -11,11 +12,18 @@ metrics = GunicornPrometheusMetrics(app)
 
 @app.route("/")
 def index():
-    return "Hello, World!"
+    choice = ["/", "\\"]
+    block = ""
+    for i in range(80):
+        line = "".join([ choice[randint(0, 1)] for i in range(350)])
+        block+=line+"<br>"
+    return block
+
 
 
 def test_index():
     client = app.test_client()
     r = client.get("/")
-    assert r.data == b"Hello, World!"
+    assert r.data[0] == b"/" or b"\\"
+    assert r.data[-1] == b"/" or b"\\"
     assert r.status_code == 200
