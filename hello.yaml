@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: hello-kc
-        image: gcr.io/devops-epitech/hello:8774c49007f9937c90b1aca90bda2486fc46706e
+        image: gcr.io/devops-epitech/hello:22526cd30de3ce0d02beef10d335d1439580e4ec
         ports:
         - containerPort: 8000
         - containerPort: 8080
