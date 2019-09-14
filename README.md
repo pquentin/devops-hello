@@ -193,8 +193,8 @@ Il faut ensuite initialiser l'environnement :
 
 ```
 $ gcloud init
-$ gcloud container clusters get-credentials c1 --zone
-europe-west6-a --project devops-epitech
+$ gcloud components install kubectl
+$ gcloud container clusters get-credentials c1 --zone europe-west6-a --project devops-epitech
 ```
 
 ## Premier déploiement
