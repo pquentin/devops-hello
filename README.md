@@ -199,13 +199,13 @@ $ gcloud container clusters get-credentials c1 --zone europe-west6-a --project d
 
 ## Premier déploiement
 
-Modifiez le fichier hello.yml pour remplacer "quentin" par votre
+Modifiez le fichier hello.yaml pour remplacer "quentin" par votre
 prénom. Il faut aussi modifier la version de l'image (après les :)
 pour utiliser le sha1 de votre commit git. Vous pouvez l'obtenir avec
 "git log".
 
 Ensuite, il suffit de lancer "$ kubectl apply -f
-hello.yml", ce qui va créer un déploiement, et ici mettre
+hello.yaml", ce qui va créer un déploiement, et ici mettre
 en place trois répliques de votre image Docker. Comme on veut qu'elles
 soient disponibles sur Internet, il y aussi un "service". Quelle est
 son adresse IP ?
