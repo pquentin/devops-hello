@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: hello-kevin
-        image: gcr.io/devops-epitech/hello:3b90cb03376f119387413e7dec5beb72bacf412d
+        image: gcr.io/devops-epitech/hello:592a9f74d563f3474c13a71fc57a1aee9bfc60a4
         ports:
         - containerPort: 8000
         - containerPort: 8080
