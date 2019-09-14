@@ -232,6 +232,13 @@ votre site web : http://34.65.175.126:3000/d/KKmr-UcZz/flask?orgId=1
 
 C'est indispensable pour corriger un problème quand ça va mal.
 
+Installez wrk et lancez quelques requêtes pour voir si votre serveur
+tient la charge :
+
+```
+$ wrk -t12 -c400 -d30s $VOTRE_IP
+```
+
 ## Déployer une nouvelle version
 
 Changez à nouveau la chaîne dans hello.py. Poussez dans GitHub, et
