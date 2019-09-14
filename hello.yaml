@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: hello-yen
-        image: gcr.io/devops-epitech/hello:dbf4ea78bc9aa16922d4eb6abd8c7b151cf46294
+        image: gcr.io/devops-epitech/hello:5597daa4fecacdddd26cf0469b22252d55205aa4
         ports:
         - containerPort: 8000
         - containerPort: 8080
